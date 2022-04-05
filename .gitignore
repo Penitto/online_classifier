@@ -1,2 +1,4 @@
 /mobilenet_v3_small.pth
 /mobilenet_v3_small.onnx
+*/.ipynb_checkpoints
+/.ipynb_checkpoints

@@ -1,22 +1,42 @@
 from flask import Flask, request, render_template
+from pymongo import MongoClient
 from werkzeug.utils import secure_filename
+import os
 
-app = Flask(__name__)
+UPLOAD_FOLDER = 'uploads'
 
-@app.route('/')
+# Настройка Flask
+app = Flask(__name__, template_folder='./')
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+# Настройка Mongo
+client = MongoClient()
+
+db = client.flaskdb
+images = db.images
+
+@app.route('/', methods=['GET', 'POST'])
 def main():
-    return 'Hellow!'
+   if request.method == 'POST':
+      return render_template('result.html')
+   return render_template('main.html')
 
-@app.route('/upload')
-def upload_file():
-   return render_template('upload.html')
 	
-@app.route('/uploader', methods = ['GET', 'POST'])
+@app.route('/upload', methods=['GET', 'POST'])
 def upload_file():
    if request.method == 'POST':
-      f = request.files['file']
-      f.save(secure_filename(f.filename))
-      return 'file uploaded successfully'
+      
+      # Получили файл
+      file = request.files['file']
+      filename = secure_filename(file.filename)
+      file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+      
+      # Закинули в базу
+      
+
+      # А потом сделать предсказание
+
+   return render_template('result.html')
 
 
 if __name__ == '__main__':
