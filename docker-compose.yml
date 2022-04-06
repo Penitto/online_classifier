@@ -1,18 +1,19 @@
 version: '3'
 services:
   flask:
-    build: app
-    dockerfile: Dockerfile
-    container-name: flask
-    image: digitalocean.com/flask-python:3.6
+    build: 
+      context: web
+      dockerfile: Dockerfile
+    container_name: flask
+    image: python:3.6
     restart: unless-stopped
     environment:
       APP_ENV: "prod"
       APP_DEBUG: "False"
       APP_PORT: 5000
-      MONGODB_DATABASE: flaskdb
-      MONGODB_USERNAME: anton
-      MONGODB_PASSWORD: 4uck
+      MONGODB_DATABASE: flask_db
+      MONGODB_USERNAME: flask_anton
+      MONGODB_PASSWORD: flask_4uck
       MONGODB_HOSTNAME: mongodb
     volumes:
       - appdata:/var/www
@@ -28,9 +29,9 @@ services:
     restart: unless-stopped
     command: mongod --auth
     environment:
-      MONGO_INITDB_ROOT_USERNAME: anton
-      MONGO_INITDB_ROOT_PASSWORD: 4uck
-      MONGO_INITDB_DATABASE: flaskdb
+      MONGO_INITDB_ROOT_USERNAME: mongo_anton
+      MONGO_INITDB_ROOT_PASSWORD: mongo_4uck
+      MONGO_INITDB_DATABASE: flask_db
       MONGODB_DATA_DIR: /data/db
       MONDODB_LOG_DIR: /dev/null
     volumes:

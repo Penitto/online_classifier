@@ -11,3 +11,31 @@
 Модель. MobileNetV3, чтобы заработало сначала на ноуте и чтобы облако без видяхи брать.
 
 Обвязка. Кажется, что вся эта штука должна быть на docker-compose из 3х контейнеров.
+
+## Инструкция:
+
+### MongoDB
+
+Сначала поднимаем всё через `docker compose up`. Оставляем это дело включенным. 
+
+Открываем новый терминал. Запускаем внутреннюю консоль контейнера:
+`docker exec -it mongodb bash`
+
+Заходим под root в базу:
+`mongo -u mongodbuser -p`
+
+Переключаемся на нашу базу:
+`use flaskdb`
+
+Создаём пользователя для работы с ней:
+`db.createUser({user: 'flaskuser', pwd: 'your password', roles: [{role: 'readWrite', db: 'flaskdb'}]})`
+
+Выходим
+`exit`
+
+Чтобы зайти под созданным пользователем
+`mongo -u flaskuser -p your password --authenticationDatabase flaskdb`
+
+### Flask
+
+
