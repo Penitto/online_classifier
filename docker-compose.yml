@@ -5,12 +5,9 @@ services:
       context: web
       dockerfile: Dockerfile
     container_name: flask
-    image: python:3.6
+    image: python:3.9
     restart: unless-stopped
     environment:
-      APP_ENV: "prod"
-      APP_DEBUG: "False"
-      APP_PORT: 5000
       MONGODB_DATABASE: flask_db
       MONGODB_USERNAME: flask_anton
       MONGODB_PASSWORD: flask_4uck
@@ -22,6 +19,8 @@ services:
     networks:
       - frontend
       - backend
+    ports:
+      - "5000"
 
   mongo:
     image: mongo:4.0.8

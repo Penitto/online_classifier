@@ -82,9 +82,7 @@ def upload_file():
       # Если с файлом всё ок
       if file and allowed_file(file.filename):
          filename = secure_filename(file.filename)
-
-         # Пока сохранили в локалку, но идеально сохранить в базу
-         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+         mongo.save_file(filename, file)
          
          # # Сделали предсказание 
          # image = cv2.imdecode(np.fromstring(file.read(), np.uint8), cv2.IMREAD_UNCHANGED)
@@ -104,4 +102,4 @@ def upload_file():
 
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5000, host='127.0.0.1')
+    app.run(host='127.0.0.1', port=5000)
