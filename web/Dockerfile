@@ -6,8 +6,12 @@ WORKDIR /var/www
 ADD . /var/www
 
 RUN pip install -r requirements.txt
+# RUN pip install gunicorn wsgi
 RUN apt update
-RUN apt-get install ffmpeg libsm6 libxext6  -y
+RUN apt-get install ffmpeg libsm6 libxext6 tree -y
+ENV FLASK_PORT=4000
+ENV FLASK_HOST='0.0.0.0'
 
-CMD ["python", "app.py"]
-# CMD [ "gunicorn", "-w", "4", "--bind", "127.0.0.1:5000", "wsgi"]
+# CMD ["python", "app.py"]
+CMD [ "uvicorn", "another_app:app", "--host", "0.0.0.0", "--port", "4000"]
+# CMD ["gunicorn", "-w", "1", ""]

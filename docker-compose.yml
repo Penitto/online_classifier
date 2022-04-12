@@ -1,4 +1,4 @@
-version: '3'
+version: '3.9'
 services:
   flask:
     build: 
@@ -20,7 +20,8 @@ services:
       - frontend
       - backend
     ports:
-      - "5000"
+      - target: 4000
+        published: 6000
 
   mongo:
     image: mongo:4.0.8
