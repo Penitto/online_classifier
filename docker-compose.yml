@@ -2,10 +2,9 @@ version: '3.9'
 services:
   flask:
     build: 
-      context: web
+      context: ./web
       dockerfile: Dockerfile
     container_name: flask
-    image: python:3.9
     restart: unless-stopped
     environment:
       MONGODB_DATABASE: flask_db
@@ -21,7 +20,7 @@ services:
       - backend
     ports:
       - target: 4000
-        published: 6000
+        published: 5663
 
   mongo:
     image: mongo:4.0.8

@@ -101,7 +101,7 @@ jupyter-client==7.1.2
 jupyter-core==4.9.2
 jupyterlab-pygments==0.1.2
 jupyterlab-widgets==1.1.0
-keras==2.8.0
+# keras==2.8.0
 kiwisolver==1.3.2
 lazy-object-proxy==1.7.1
 lockfile==0.12.2
@@ -113,8 +113,8 @@ marshmallow==3.14.1
 marshmallow-enum==1.5.1
 marshmallow-oneofschema==3.0.1
 marshmallow-sqlalchemy==0.26.1
-matplotlib==3.5.1
-matplotlib-inline==0.1.3
+# matplotlib==3.5.1
+# matplotlib-inline==0.1.3
 mistune==0.8.4
 multidict==6.0.2
 mypy-extensions==0.4.3
@@ -124,12 +124,12 @@ nbconvert==6.4.2
 nbformat==5.1.3
 nest-asyncio==1.5.4
 networkx==2.6.3
-notebook==6.4.8
+# notebook==6.4.8
 numpy==1.22.2
-onnx==1.11.0
+# onnx==1.11.0
 opencv-python==4.5.5.64
 packaging==21.3
-pandas==1.4.1
+# pandas==1.4.1
 pandocfilters==1.5.0
 parso==0.8.3
 pathspec==0.9.0

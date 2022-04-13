@@ -1,17 +1,15 @@
-FROM python:3.9
+FROM python:3.9-slim
 
-# RUN apk update && apk add gcc python3-dev libc-dev
-
-WORKDIR /var/www
-ADD . /var/www
-
-RUN pip install -r requirements.txt
 # RUN pip install gunicorn wsgi
 RUN apt update
-RUN apt-get install ffmpeg libsm6 libxext6 tree -y
+RUN apt-get install gcc ffmpeg libsm6 libxext6 tree -y
 ENV FLASK_PORT=4000
 ENV FLASK_HOST='0.0.0.0'
 
+WORKDIR /var/www
+COPY . /var/www
+
+RUN pip install -r requirements.txt --no-cache-dir
+
 # CMD ["python", "app.py"]
-CMD [ "uvicorn", "another_app:app", "--host", "0.0.0.0", "--port", "4000"]
-# CMD ["gunicorn", "-w", "1", ""]
+CMD [ "gunicorn", "app:app", "--bind", "0.0.0.0:4000"]
