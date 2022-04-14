@@ -22,20 +22,21 @@
 `docker exec -it mongodb bash`
 
 Заходим под root в базу:
-`mongo -u mongodbuser -p`
+`mongo -u mongo_user -p mongo_password`
 
 Переключаемся на нашу базу:
-`use flaskdb`
+`use flask_db`
 
 Создаём пользователя для работы с ней:
-`db.createUser({user: 'flaskuser', pwd: 'your password', roles: [{role: 'readWrite', db: 'flaskdb'}]})`
+`db.createUser({user: 'flask_user', pwd: 'flask_password', roles: [{role: 'readWrite', db: 'flask_db'}]})`
 
 Выходим
 `exit`
 
 Чтобы зайти под созданным пользователем
-`mongo -u flaskuser -p your password --authenticationDatabase flaskdb`
+`mongo -u flask_user -p flask_password --authenticationDatabase flask_db`
 
 ### Flask
 
+Выходим под `docker compose down -v`
 

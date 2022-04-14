@@ -6,6 +6,7 @@ RUN apt-get install gcc ffmpeg libsm6 libxext6 tree -y
 ENV FLASK_PORT=4000
 ENV FLASK_HOST='0.0.0.0'
 
+RUN rm -rf /var/www
 WORKDIR /var/www
 COPY . /var/www
 

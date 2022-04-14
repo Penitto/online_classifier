@@ -23,7 +23,7 @@ FLASK_SECRET_KEY = 'super dooper secret'
 # MODEL_PATH = '../model/mobilenet_v3_small.pth'
 
 # Настройка Flask
-app = Flask(__name__, template_folder='./')
+app = Flask(__name__, template_folder='./templates')
 app.secret_key = FLASK_SECRET_KEY
 app.config['UPLOAD_FOLDER'] = FLASK_UPLOAD_FOLDER
 
@@ -58,12 +58,7 @@ def allowed_file(filename):
 # Главная страница
 @app.route('/', methods=['GET', 'POST'])
 def main():
-   return render_template('main.html')
-
-@app.route("/add_one")
-def add_one():
-    db.todos.insert_one({'title': "todo title", 'body': "todo body"})
-    return flask.jsonify(message="success")
+   return render_template('start.html')
 
 # Страница с результатом
 @app.route('/upload', methods=['GET', 'POST'])
