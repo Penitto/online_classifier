@@ -1,8 +1,16 @@
 <html>
     <body>
-        <h1><p style="text-align:center">{{prediction}}</p></h1>
+
+        <img align="middle" src="{{url_for('static', filename=filename)}}">
+
+        <h1><p style="text-align:center">Your file named {{filename}} has {{prediction}}</p></h1>
         <form action = "/" method = "POST" style="text-align:center">
             <input type = "submit" value = "Back">
         </form>
+
+        <!-- <h1><p style="text-align: center">You can download it here:</p></h1>
+        <form action = "/download" method = "POST" style="text-align:center">
+            <input type = "submit" value = "Back">
+        </form> -->
     </body>
 </html>
