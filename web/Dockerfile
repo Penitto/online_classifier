@@ -8,13 +8,6 @@ RUN rm -rf /var/www
 WORKDIR /var/www
 COPY . /var/www
 
-ENV MODEL_IMAGE_BATCH_SIZE 1
-ENV MODEL_IMAGE_CHANNELS 3
-ENV MODEL_IMAGE_HEIGHT 512
-ENV MODEL_IMAGE_WIDTH 512
-ENV MODEL_CLASSES_FILE './model/classes.json'
-ENV MODEL_PATH './model/mobilenet_v3_small.pth'
-
 RUN pip install -r requirements.txt --no-cache-dir
 
 # CMD ["python", "app.py"]

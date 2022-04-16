@@ -6,16 +6,8 @@ services:
       dockerfile: Dockerfile
     container_name: flask
     restart: unless-stopped
-    environment:
-      MONGODB_DATABASE: flask_db
-      MONGODB_USERNAME: flask_anton
-      MONGODB_PASSWORD: flask_4uck
-      MONGODB_HOSTNAME: mongodb
-      FLASK_PORT: 4000
-      FLASK_HOST: 0.0.0.0
-      FLASK_SECRET_KEY: super dooper secret
-      FLASK_TEMPLATES: ./templates
-      FLASK_STATIC: ./static
+    env_file:
+       - ./web/web.env
     # volumes:
     #   - appdata:/var/www
     depends_on:
@@ -28,18 +20,15 @@ services:
         published: 5663
 
   mongo:
-    image: mongo:4.0.8
+    image: mongo:latest
     container_name: mongodb
     restart: unless-stopped
     command: mongod --auth
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: mongo_anton
-      MONGO_INITDB_ROOT_PASSWORD: mongo_4uck
-      MONGO_INITDB_DATABASE: flask_db
-      MONGODB_DATA_DIR: /data/db
-      MONDODB_LOG_DIR: /dev/null
-    # volumes:
-    #   - mongodbdata:/data/db
+    env_file:
+      - ./mongo/mongo.env
+    volumes:
+      - ./mongo/flask_user_init.js:/docker-entrypoint-initdb.d/flask_user_init.js
+      - mongodbdata:/data/db
     networks:
       - backend
 
