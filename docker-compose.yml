@@ -11,8 +11,12 @@ services:
       MONGODB_USERNAME: flask_anton
       MONGODB_PASSWORD: flask_4uck
       MONGODB_HOSTNAME: mongodb
-    volumes:
-      - appdata:/var/www
+      FLASK_PORT: 4000
+      FLASK_HOST: 0.0.0.0
+      FLASK_SECRET_KEY: super dooper secret
+      FLASK_TEMPLATES: ./templates
+    # volumes:
+    #   - appdata:/var/www
     depends_on:
       - mongodb
     networks:
@@ -33,8 +37,8 @@ services:
       MONGO_INITDB_DATABASE: flask_db
       MONGODB_DATA_DIR: /data/db
       MONDODB_LOG_DIR: /dev/null
-    volumes:
-      - mongodbdata:/data/db
+    # volumes:
+    #   - mongodbdata:/data/db
     networks:
       - backend
 

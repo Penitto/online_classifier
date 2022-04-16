@@ -16,25 +16,30 @@
 
 ### MongoDB
 
-Сначала поднимаем всё через `docker compose up`. Оставляем это дело включенным. 
+Сначала поднимаем всё через:
+`docker compose up`. 
 
-Открываем новый терминал. Запускаем внутреннюю консоль контейнера:
+Оставляем это дело включенным. Открываем новый терминал. Запускаем внутреннюю консоль контейнера:
+
 `docker exec -it mongodb bash`
 
 Заходим под root в базу:
+
 `mongo -u mongo_user -p mongo_password`
 
 Переключаемся на нашу базу:
+
 `use flask_db`
 
 Создаём пользователя для работы с ней:
+
 `db.createUser({user: 'flask_user', pwd: 'flask_password', roles: [{role: 'readWrite', db: 'flask_db'}]})`
 
-Выходим
-`exit`
+Чтобы зайти под созданным пользователем: 
 
-Чтобы зайти под созданным пользователем
 `mongo -u flask_user -p flask_password --authenticationDatabase flask_db`
+
+Файлы загружаются в базу `flask_db` в коллекцию `flask_db.fs.files`
 
 ### Flask
 
