@@ -1,9 +1,18 @@
 <html>
+    <head>
+        <style>
+            img {
+              display: block;
+              margin-left: auto;
+              margin-right: auto;
+            }
+            </style>
+    </head>
     <body>
 
-        <img align="middle" src="{{url_for('static', filename=filename)}}">
+        <img src="{{url_for('static', filename=filename)}}">
 
-        <h1><p style="text-align:center">Your file named {{filename}} has {{prediction}}</p></h1>
+        <h1><p style="text-align:center">It is a {{prediction}}</p></h1>
         <form action = "/" method = "POST" style="text-align:center">
             <input type = "submit" value = "Back">
         </form>
