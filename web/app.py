@@ -55,6 +55,7 @@ def main():
             os.remove(os.environ['FLASK_STATIC'] + '/' + file)
          except:
             print('Unable to delete because of lapki')
+
    return render_template('start.html')
 
 # Страница с результатом
