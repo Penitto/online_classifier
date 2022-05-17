@@ -1,12 +1,19 @@
 <html>
    <head>
+      <style>
+         img {
+           display: block;
+           margin-left: auto;
+           margin-right: auto;
+         }
+     </style>
+
       <h2>
          <p style="text-align:center">Hello! <br> Choose your image for classification:</p>
       </h2>
    </head>
    <body>
       <!-- Адрес стоит сменить со стандартного -->
-      <!-- Ну скажем, хуй -->
       <form action = "/upload" method = "POST" enctype = "multipart/form-data" style="text-align:center">
          <!-- Кнопка с добавлением файла -->
          <input type = "file" name = "file">
@@ -14,5 +21,15 @@
          <!-- Кнопка для подтверждения -->
          <input type = "submit" value = "Upload">
       </form>   
+
+
+
+      <!-- Случайный результат прошлых классификаций -->
+      {% if random_filename %}
+         <h2>
+            <p style="text-align:center"> Random previous prediction</p>
+         </h2>
+         <img src="{{url_for('static', filename=random_image)}}" hspace=20>
+      {% endif %}
    </body>
 </html>

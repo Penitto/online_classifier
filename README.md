@@ -19,5 +19,13 @@
 
  - Попробовать модели не в родном `.pth`, а прогонять через другие фреймворки
 
+ - Закинуть это в тг бота???
+
+ ## HOW TO:
+
+ 1) After cloning repo change environment variables in `./mongo/mongo.env` and `./web/web.env`.
+
+ 2) Just `docker compose up`, wait and check `<localhost>:<your_port>`.
+
 
 
