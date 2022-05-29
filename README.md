@@ -2,8 +2,6 @@
 
 Веб-апп с простой классификацией картинок.
 
-База. MongoDB в отдельном контейнере
-
 Модель. MobileNetV3
 
 
@@ -23,9 +21,7 @@
 
  ## HOW TO:
 
- 1) After cloning repo change environment variables in `./mongo/mongo.env` and `./web/web.env`.
-
- 2) Just `docker compose up`, wait and check `<localhost>:<your_port>`.
+ Just `docker compose up`, wait and check `<localhost>:<your_port>`.
 
 
 

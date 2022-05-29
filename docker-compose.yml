@@ -18,22 +18,6 @@ services:
     ports:
       - target: 4000
         published: 5663
-
-  mongo:
-    image: mongo:latest
-    container_name: mongodb
-    restart: unless-stopped
-    command: mongod --auth
-    env_file:
-      - ./mongo/mongo.env
-    volumes:
-      - ./mongo/flask_user_init.js:/docker-entrypoint-initdb.d/flask_user_init.js
-      - mongodbdata:/data/db
-    networks:
-      - backend
-
-    # model:
-    #   image: python3
   
 networks:
   frontend:
@@ -42,7 +26,6 @@ networks:
     driver: bridge
 
 volumes:
-  mongodbdata:
-    driver: local
   appdata:
     driver: local
+  
