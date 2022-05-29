@@ -1,39 +1,47 @@
 version: '3.9'
 services:
-  flask:
-    build: 
-      context: ./web
-      dockerfile: Dockerfile
-    container_name: flask
+  # flask:
+  #   build: 
+  #     context: ./web
+  #     dockerfile: Dockerfile
+  #   container_name: flask
+  #   restart: unless-stopped
+  #   env_file:
+  #      - ./web/web.env
+  #   # volumes:
+  #   #   - appdata:/var/www
+  #   depends_on:
+  #     - mongodb
+  #   networks:
+  #     - frontend
+  #     - backend
+  #   ports:
+  #     - target: 4000
+  #       published: 5663
+
+  postgre:
+    image: postgres:latest
+    container_name: postgredb
     restart: unless-stopped
     env_file:
-       - ./web/web.env
+      - ./postgre/postgre.env
     # volumes:
-    #   - appdata:/var/www
-    depends_on:
-      - mongodb
-    networks:
-      - frontend
-      - backend
-    ports:
-      - target: 4000
-        published: 5663
-
-  mongo:
-    image: mongo:latest
-    container_name: mongodb
-    restart: unless-stopped
-    command: mongod --auth
-    env_file:
-      - ./mongo/mongo.env
-    volumes:
-      - ./mongo/flask_user_init.js:/docker-entrypoint-initdb.d/flask_user_init.js
-      - mongodbdata:/data/db
+      # - postgredbdata:/data/db
     networks:
       - backend
 
-    # model:
-    #   image: python3
+  # mongo:
+  #   image: mongo:latest
+  #   container_name: mongodb
+  #   restart: unless-stopped
+  #   command: mongod --auth
+  #   env_file:
+  #     - ./mongo/mongo.env
+  #   volumes:
+  #     - ./mongo/flask_user_init.js:/docker-entrypoint-initdb.d/flask_user_init.js
+  #     - mongodbdata:/data/db
+  #   networks:
+  #     - backend
   
 networks:
   frontend:
@@ -46,3 +54,6 @@ volumes:
     driver: local
   appdata:
     driver: local
+  postgredbdata:
+    driver: local
+  
