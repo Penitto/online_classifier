@@ -8,8 +8,8 @@ services:
     restart: unless-stopped
     env_file:
        - ./web/web.env
-    # volumes:
-    #   - appdata:/var/www
+    volumes:
+      - appdata:/media
     depends_on:
       - mongodb
     networks:

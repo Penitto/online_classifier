@@ -1,4 +1,0 @@
-outs:
-- md5: d712d3ec936f4e6fb174295aa1092681
-  size: 10863653
-  path: mobilenet_v3_small.onnx
