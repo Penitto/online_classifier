@@ -5,8 +5,8 @@ import os
 import json
 import torch
 import logging
-from torchvision.models import mobilenet_v3_small
-from torchvision.transforms import ToTensor
+import onnxruntime
+import torchvision.transforms as transforms
 import cv2
 import numpy as np
 
@@ -20,9 +20,20 @@ root = logging.getLogger()
 root.addHandler(default_handler)
 
 # Модель
-model = mobilenet_v3_small(pretrained=False, progress=False)
-model.state_dict = torch.load(os.environ['MODEL_PATH'])
-model.eval()
+# model = mobilenet_v3_small(pretrained=False, progress=False)
+# model.state_dict = torch.load(os.environ['MODEL_PATH'])
+# model.eval()
+
+# ONNX сессия
+onnx_session = onnxruntime.InferenceSession(os.environ['MODEL_PATH'])
+onnx_input = onnx_session.get_inputs()
+
+# Преобразования для картинки
+transform = transforms.Compose([
+   transforms.ToTensor(), 
+   transforms.Normalize(
+      mean=[0.485, 0.456, 0.406], 
+      std=[0.229, 0.224, 0.225])])
 
 # Классы
 img_class_map = None
@@ -31,6 +42,7 @@ if os.path.isfile(mapping_file_path):
     with open (mapping_file_path) as f:
         img_class_map = json.load(f)
 
+# Папка для хранения статики
 if not os.path.exists(os.environ['FLASK_STATIC']):
    os.mkdir(os.environ['FLASK_STATIC'])
 
@@ -43,7 +55,7 @@ def allowed_file(filename):
 @app.route('/', methods=['GET', 'POST'])
 def main():
 
-   static_files = os.listdir(os.environ['FLASK_STATIC'])
+   # static_files = os.listdir(os.environ['FLASK_STATIC'])
 
    return render_template('start.html')
 
@@ -67,23 +79,29 @@ def upload_file():
 
          # Сохраняем файл
          filename = secure_filename(file.filename)
-         filename = os.path.join(os.environ['FLASK_STATIC'], filename)
-         file.save(filename)
+         full_filename = os.path.join(os.environ['FLASK_STATIC'], filename)
+         file.save(full_filename)
          
          # Логнули об этом
-         app.logger.warning('%s saved', filename)
+         app.logger.warning('%s saved', full_filename)
 
          # Выгрузили изображение из базы
-         image = cv2.imread(filename)
+         image = cv2.imread(full_filename)
          image = cv2.resize(image, (int(os.environ['MODEL_IMAGE_HEIGHT']), int(os.environ['MODEL_IMAGE_WIDTH'])))
-         image = torch.unsqueeze(ToTensor()(image), 0)
-         prediction = torch.argmax(model.forward(image).data).numpy()
+         image = torch.unsqueeze(transform(image), 0)
+
+         inputs = {onnx_input[0].name: image.numpy()}
+         outputs = onnx_session.run(None, inputs)
+
+         prediction = np.argmax(outputs[0])
+
+         # prediction = torch.argmax(model.forward(image).data).numpy()
 
          return render_template('result.html', 
             prediction=img_class_map[prediction], 
             filename=filename)
 
-   return 
+   return 0
 
 
 if __name__ == '__main__':
