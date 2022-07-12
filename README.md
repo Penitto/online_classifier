@@ -1,27 +1,21 @@
-# ОНЛАЙН КЛАССИФИКАТОР КАРТИНОК
+# Online image classification (Imagenet)
 
-Веб-апп с простой классификацией картинок.
-
-Модель. MobileNetV3
+Web-app online classifier powered by EfficientNet B4 pretrained on Imagenet.
 
 
 ## TODO:
 
- - Показывать на первой странице недавние классификации
+ - Show recent classifications
 
- - Сделать предсказания модели лучше
+ - Make web pages more beautiful
 
- - Сделать странички более съедобными
-
- - Залить контейнер с requirements на хаб, чтобы не скачивать и не устанавливать их постоянно
-
- - Попробовать модели не в родном `.pth`, а прогонять через другие фреймворки
-
- - Закинуть это в тг бота???
+ - Try to use telegram bot
 
  ## HOW TO:
 
- Just `docker compose up`, wait and check `<localhost>:<your_port>`.
+Firstly you need to build docker image with requirements: `docker build ./web/requirements_Dockerfile -t python_req:latest`.
+
+After that `docker compose up`, wait and check `<localhost>:<your_port>`.
 
 
 
