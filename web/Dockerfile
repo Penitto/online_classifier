@@ -1,13 +1,13 @@
-FROM python_req:latest
+FROM python:3.9-slim
 
 # RUN pip install gunicorn wsgi
-# RUN apt update
-# RUN apt-get install gcc ffmpeg libsm6 libxext6 tree -y
+RUN apt update
+RUN apt-get install gcc ffmpeg libsm6 libxext6 tree -y
 
 WORKDIR /usr/src
-COPY . /usr/src
+COPY ./requirements.txt /usr/src/requirements.txt
 
-# RUN pip install -r requirements.txt --no-cache-dir
+RUN pip install -r requirements.txt --no-cache-dir
 
 # ENV FLASK_PORT 4000
 # ENV FLASK_HOST "0.0.0.0"
@@ -21,6 +21,6 @@ COPY . /usr/src
 # ENV MODEL_CLASSES_FILE "/usr/src/model/classes.json"
 # ENV MODEL_PATH = "/usr/src/model/efficientnet_b4.onnx"
 
-# CMD ["/bin/bash"]
-CMD ["python", "app.py"]
+CMD ["/bin/bash"]
+# CMD ["python", "app.py"]
 # CMD [ "gunicorn", "app:app", "--bind", "0.0.0.0:4000"]
